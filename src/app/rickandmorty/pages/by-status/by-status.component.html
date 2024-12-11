@@ -1,0 +1,73 @@
+<h2 class="text-center">Buscar por estado</h2>
+
+<div class="row d-flex justify-content-center">
+  <div class="col-6">
+    <div class="mb-3">
+      <label for="characterStatus" class="form-label"
+        >Estado del Personaje</label
+      >
+      <select
+        #characterStatus
+        (change)="searchByStatus(characterStatus.value)"
+        class="form-select"
+        id="characterStatus"
+        aria-label="Estado del Personaje"
+      >
+        <option selected>Seleccionar...</option>
+        <option value="alive">Alive</option>
+        <option value="dead">Dead</option>
+        <option value="unknown">Unknown</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="row d-flex justify-content-center">
+  <div
+    *ngIf="characters.length == 0; else thereAreCharacters"
+    class="alert alert-danger text-center mt-2"
+  >
+    No hay personajes
+  </div>
+  <ng-template #thereAreCharacters>
+    <div class="col">
+      <h3 class="mt-2 text-center">Personajes</h3>
+      <hr />
+      <!--Tajeta del personaje-->
+      <div
+        class="d-flex justify-content-center"
+        *ngFor="let character of characters"
+      >
+        <div class="card mt-2" style="width: 18rem">
+          <img
+            class="card-img-top"
+            [src]="character.image"
+            alt="Card image cap"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ character.name }}</h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Género: {{ character.gender }}</li>
+            <li class="list-group-item">Especie: {{ character.species }}</li>
+            <li
+              class="list-group-item"
+              [ngClass]="{
+                alive: character.status === 'Alive',
+                dead: character.status === 'Dead',
+                unknown: character.status === 'unknown'
+              }"
+            >
+              Estado: {{ character.status }}
+            </li>
+            <li class="list-group-item">Origen: {{ character.origin.name }}</li>
+          </ul>
+        </div>
+      </div>
+      <!--Loading-->
+      <div class="mt-2">
+        <shared-loading-spinner *ngIf="isLoading"></shared-loading-spinner>
+      </div>
+    </div>
+  </ng-template>
+</div>

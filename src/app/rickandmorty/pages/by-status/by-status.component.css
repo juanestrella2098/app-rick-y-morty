@@ -1,0 +1,15 @@
+.alive {
+    background-color: green;
+    color: white;
+  }
+  
+  .dead {
+    background-color: red;
+    color: white;
+  }
+  
+  .unknown {
+    background-color: gray;
+    color: white;
+  }
+  
